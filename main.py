@@ -84,6 +84,7 @@ async def p(ctx,iss,seconds,member : discord.Member):
     await asyncio.sleep(1)
     print("bitti")
     member2 = str(member.id)
+    await bot.change_presence(activity=discord.Game(name="Ich bin Enigma"))
     d= "<@"+ member2 +"> pomodoro sona erdi."
     await ctx.channel.send(d)
 bot.run(to+ke+n)
