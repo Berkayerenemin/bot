@@ -58,7 +58,7 @@ async def banla(ctx,member : discord.Member, *, reason="Herhangi bir nedeni yok"
     await member.ban(reason=reason)
 
 @bot.command()
-async def p(ctx,seconds,member : discord.Member):
+async def p(ctx,iss,seconds,member : discord.Member):
     print(seconds)
     sec = int(seconds)
     member3 = str(member.id)
@@ -68,14 +68,16 @@ async def p(ctx,seconds,member : discord.Member):
         minn, secc = divmod(sec, 60)
         timeformat = '{:02d}:{:02d}'.format(minn, secc)
         print(timeformat, end='\r')
+        yaz = "Şunun için çalışılıyor:"+iss+" "+timeformat
         #times = (timeformat, end='\r')
-        await bot.change_presence(activity=discord.Game(name=timeformat))
+        await bot.change_presence(activity=discord.Game(name=yaz))
         await asyncio.sleep(5)
         sec -= 5
         if sec <= 0:
             timeformat = '{:02d}:{:02d}'.format(minn, secc)
             print(timeformat, end='\r')
-            await bot.change_presence(activity=discord.Game(name=timeformat))
+            yaz = "Şunun için çalışılıyor:"+iss+" "+timeformat
+            await bot.change_presence(activity=discord.Game(name=yaz))
             break
         else:
             pass
