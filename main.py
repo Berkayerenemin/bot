@@ -8,6 +8,7 @@ import json
 from discord import Game
 from discord.ext.commands import Bot
 from discord.ext import commands
+from discord.utils import get
 
 bot = commands.Bot(command_prefix='!')
 
@@ -41,9 +42,5 @@ async def on_message(message):
         await help.yardim()
     if "!yardım" == mesaj:
         await help.yardim()
-        
-    if "!id" in mesaj:
-        id = message.user.author
-        print(id)
 
 bot.run(to+ke+n)
