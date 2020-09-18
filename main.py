@@ -71,8 +71,8 @@ async def p(ctx,iss,seconds,member : discord.Member):
         yaz = "Şunun için çalışılıyor: "+iss+" "+timeformat
         #times = (timeformat, end='\r')
         await bot.change_presence(activity=discord.Game(name=yaz))
-        await asyncio.sleep(1)
-        sec -= 1
+        await asyncio.sleep(5)
+        sec -= 5
         if sec <= 0:
             timeformat = '{:02d}:{:02d}'.format(minn, secc)
             print(timeformat, end='\r')
