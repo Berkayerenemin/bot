@@ -68,7 +68,7 @@ async def p(ctx,iss,seconds,member : discord.Member):
         minn, secc = divmod(sec, 60)
         timeformat = '{:02d}:{:02d}'.format(minn, secc)
         print(timeformat, end='\r')
-        yaz = "Şunun için çalışılıyor:"+iss+" "+timeformat
+        yaz = "Şunun için çalışılıyor: "+iss+" "+timeformat
         #times = (timeformat, end='\r')
         await bot.change_presence(activity=discord.Game(name=yaz))
         await asyncio.sleep(5)
@@ -76,7 +76,7 @@ async def p(ctx,iss,seconds,member : discord.Member):
         if sec <= 0:
             timeformat = '{:02d}:{:02d}'.format(minn, secc)
             print(timeformat, end='\r')
-            yaz = "Şunun için çalışılıyor:"+iss+" "+timeformat
+            yaz = "Şunun için çalışılıyor: "+iss+" "+timeformat
             await bot.change_presence(activity=discord.Game(name=yaz))
             break
         else:
