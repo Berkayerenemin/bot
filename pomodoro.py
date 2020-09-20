@@ -3,6 +3,7 @@ import os
 import random
 import sqlite3
 from discord.ext import commands
+from discord.ext.commands import Bot
 import time
 import asyncio
 
@@ -14,54 +15,64 @@ minSpring=1
 maxSpring=2
 minWorkRatio=5
 
+import yazdir
+
 pomodorodata = {}
 
 def datayayaz(id, sonzaman):
-    pomodorodata[id] = sonzaman
+    if id in pomodorodata:
+        pomodorodata.pop(id)
+        pomodorodata[id] = sonzaman
+    else:
+        pomodorodata[id] = sonzaman
 
-async def zamanlama(ctx,iss,seconds,member):
+async def zamanlama(ctx,iss,seconds):
     print(seconds)
     sec = int(seconds)
-    member3 = str(member.id)
-    a= "<@"+ member3 +"> pomodoro aktif.."
-    datayayaz(member3, seconds)
-    await ctx.channel.send(a)
+    embed=discord.Embed(title="Pomodoro",description=ctx.author.mention, color=0x1fb731)
+    embed.set_author(name="Enigma Bot")
+    embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+    embed.add_field(name="AKTİF", value="Boş zaman yoktur; boşa geçen zaman vardır.", inline=True)
+    datayayaz(ctx.author.id, seconds)
+    await ctx.channel.send(embed=embed)
     print(pomodorodata.items())
     while sec:
         minn, secc = divmod(sec, 60)
         timeformat = '{:02d}:{:02d}'.format(minn, secc)
         print(timeformat, end='\r')
+        #times = timeformat, end='\r'
         yaz = "Şunun için çalışılıyor: "+iss+" "+timeformat
-        #times = (timeformat, end='\r')
-        #await bot.change_presence(activity=discord.Game(name=yaz))
         await asyncio.sleep(5)
         sec -= 5
         if sec <= 0:
             timeformat = '{:02d}:{:02d}'.format(minn, secc)
             print(timeformat, end='\r')
             yaz = "Şunun için çalışılıyor: "+iss+" "+timeformat
-            #await bot.change_presence(activity=discord.Game(name=yaz))
             break
         else:
             pass
     await asyncio.sleep(1)
     print("bitti")
-    member2 = str(member.id)
-    #await bot.change_presence(activity=discord.Game(name="Ich bin Enigma"))
-    d= "<@"+ member2 +"> pomodoro sona erdi."
-    await ctx.channel.send(d)
+    embed=discord.Embed(title="Pomodoro",description=ctx.author.mention, color=0x1fb731)
+    embed.set_author(name="Enigma Bot")
+    embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+    embed.add_field(name="PASİF", value="Boş zaman yoktur; boşa geçen zaman vardır.", inline=True)
+    await ctx.channel.send(embed=embed)
     print(pomodorodata)
 
 
-async def zamanlama2(ctx, member):
-    member4 = str(member.id)
+async def zamanlama2(ctx):
+    member4 = ctx.author.id
     print(pomodorodata.items())
     if member4 in pomodorodata:
         print(pomodorodata[member4])
         seconds2 = pomodorodata[member4]
         sec = int(seconds2)
-        a= "<@"+ member4 +"> pomodoro aktif.. (En son kullandığınız zaman baz alınmıştır)"
-        await ctx.channel.send(a)
+        embed=discord.Embed(title="Pomodoro",description=ctx.author.mention, color=0x1fb731)
+        embed.set_author(name="Enigma Bot")
+        embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+        embed.add_field(name="AKTİF", value="Boş zaman yoktur; boşa geçen zaman vardır.", inline=True)
+        await ctx.channel.send(embed=embed)
         while sec:
             minn, secc = divmod(sec, 60)
             timeformat = '{:02d}:{:02d}'.format(minn, secc)
@@ -82,8 +93,11 @@ async def zamanlama2(ctx, member):
         await asyncio.sleep(1)
         print("bitti")
         #await bot.change_presence(activity=discord.Game(name="Ich bin Enigma"))
-        d= "<@"+ member4 +"> pomodoro sona erdi."
-        await ctx.channel.send(d)
+        embed=discord.Embed(title="Pomodoro",description=ctx.author.mention, color=0x1fb731)
+        embed.set_author(name="Enigma Bot")
+        embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+        embed.add_field(name="PASİF", value="Boş zaman yoktur; boşa geçen zaman vardır.", inline=True)
+        await ctx.channel.send(embed=embed)
         print(pomodorodata)
 
     else:

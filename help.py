@@ -1,6 +1,7 @@
 import discord
+from datetime import datetime
 async def yardımkomut(ctx):
-    embed=discord.Embed(title="Yardım / Help", description="!komutlar ile sahip olduğum özellikleri tek bir listede görüntüleyebilirsin.")
+    embed=discord.Embed(title="Yardım / Help", description="!komutlar ile sahip olduğum özellikleri tek bir listede görüntüleyebilirsin.", timestamp=datetime.utcnow())
     embed.set_author(name="Enigma")
     embed.add_field(name="Dil:", value="%100 Türkçe", inline=False)
     embed.add_field(name="Yazılım:", value="Açık Kaynak (Github)", inline=False)

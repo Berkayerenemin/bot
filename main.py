@@ -11,10 +11,19 @@ from discord.ext import commands
 
 bot = commands.Bot(command_prefix='!')
 
+"""@bot.event
+async def on_error(ctx, err, *args, **kwargs):
+    if err == "on_command_error":
+        await ctx.channel.send("Bir şeyler yanlış gitti...")
+
+@bot.event
+async def on_command_error(ctx, exc):
+    await ctx.channel.send("Böyle bir komut hafızamda bulunmuyor!")"""
+
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} artık aktif!')
-    await bot.change_presence(activity=discord.Game(name="Ich bin Enigma"))
+    await bot.change_presence(activity=discord.Game(name="Geliştirme Aşamasında..."))
 
 to = "NzU0NzA4NjUyNzA2"
 ke = "NzU4NzI4.X14rNA.SyDYn8-"
@@ -44,11 +53,17 @@ async def banla(ctx,member : discord.Member, *, reason="Herhangi bir nedeni yok"
     await help.ban(ctx,member,reason="Herhangi bir nedeni yok")
 
 @bot.command()
-async def p(ctx,iss,seconds,member : discord.Member):
-    await pomodoro.zamanlama(ctx,iss,seconds,member)
+async def p(ctx,iss,seconds):
+    await pomodoro.zamanlama(ctx,iss,seconds)
 
 @bot.command()
-async def pt(ctx, member : discord.Member):
-    await pomodoro.zamanlama2(ctx,member)
+async def pt(ctx):
+    await pomodoro.zamanlama2(ctx)
+
+@bot.command()
+async def say_hello(ctx):
+    await ctx.channel.send(f"Hello {ctx.author.mention}!")
+    print(ctx.author.id)
+    print(ctx.author.name)
 
 bot.run(to+ke+n)
