@@ -15,8 +15,6 @@ minSpring=1
 maxSpring=2
 minWorkRatio=5
 
-import yazdir
-
 pomodorodata = {}
 
 def datayayaz(id, sonzaman):
