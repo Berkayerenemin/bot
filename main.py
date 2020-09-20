@@ -53,7 +53,8 @@ async def banla(ctx,member : discord.Member, *, reason="Herhangi bir nedeni yok"
     await help.ban(ctx,member,reason="Herhangi bir nedeni yok")
 
 @bot.command()
-async def p(ctx,iss,seconds):
+async def p(ctx,iss,dk):
+    seconds = dk*60
     await pomodoro.zamanlama(ctx,iss,seconds)
 
 @bot.command()
