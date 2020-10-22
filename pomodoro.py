@@ -104,7 +104,7 @@ async def starter(ctx, dakika):
         baslik = "Süre zaten devam ediyor. [%r]" %(ctx.author.mention)
         embed= discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
-        embed.set_footer(text="!s iptal ile süreyi iptal edebilirsiniz.")
+        #embed.set_footer(text="!s iptal ile süreyi iptal edebilirsiniz.")
         await ctx.channel.send(embed=embed)
         kisidurdumu[kullaniciid] = "devam"
         tekraredildimi[kullaniciid] = 0
@@ -114,7 +114,7 @@ async def starter(ctx, dakika):
         baslik = "Kalan süre: %r dakika! [%r] " %(dakika, ctx.author.mention)
         embed=discord.Embed(title="Başlatıldı",description=baslik,color=0x4ce141)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
-        embed.set_footer(text=".s iptal ile süreyi durdurabilirsiniz.")
+        #embed.set_footer(text=".s iptal ile süreyi durdurabilirsiniz.")
         await ctx.channel.send(embed = embed)
         sn = int(dakika*60)
         await zamanlayici(ctx, sn)
@@ -125,14 +125,14 @@ async def zamandurdurma(ctx):
         baslik = "Şu an aktif süreniz yok! [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
-        embed.set_footer(text="!s {dakika} ile süre ayarlayabilirsiniz.")
+        #embed.set_footer(text="!s {dakika} ile süre ayarlayabilirsiniz.")
         await ctx.channel.send(embed=embed)
 
     elif kullaniciid in kisidurdumu and kisidurdumu[kullaniciid] == "durdu":
         baslik = "Durdurulan süre iptal edildi. [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="İptal Edildi",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
-        embed.set_footer(text="!s {dakika} ile süre ayarlayabilirsiniz.")
+        #embed.set_footer(text="!s {dakika} ile süre ayarlayabilirsiniz.")
         await ctx.channel.send(embed=embed)
         if kullaniciid in anlıkzaman:
             anlıkzaman.pop(kullaniciid)
@@ -154,7 +154,7 @@ async def durmaolayi(ctx):
             baslik = "Süre zaten durduruldu! [%r]" %(ctx.author.mention)
             embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
             #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
-            embed.set_footer(text="!s devam ile yeni süre oluşturabilirsiniz.")
+            #embed.set_footer(text="!s devam ile yeni süre oluşturabilirsiniz.")
             await ctx.channel.send(embed=embed)
             tekraredildimi[kullaniciid] = 0
         else:
@@ -164,7 +164,7 @@ async def durmaolayi(ctx):
         baslik = "Süre zaten devam ediyor! [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
-        embed.set_footer(text="!s {dakika} ile yeni süre oluşturabilirsiniz.")
+        #embed.set_footer(text="!s {dakika} ile yeni süre oluşturabilirsiniz.")
         await ctx.channel.send(embed=embed)
         tekraredildimi[kullaniciid] = 1
 
