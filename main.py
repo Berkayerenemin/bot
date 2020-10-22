@@ -10,9 +10,7 @@ from discord.ext import commands
 from discord.ext.commands import errors
 import wiki2
 import time as t
-import yenidenp
 import yardim
-import yenis
 import pomodoro
 
 token = os.environ.get('BOT-TOKEN')
