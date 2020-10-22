@@ -168,7 +168,7 @@ async def durmaolayi(ctx):
             calismalistesi[kullaniciid] = 2
             tekraredildimi[kullaniciid] = 0
     else:
-        baslik = "Süre zaten devam ediyor! [%r]" %(ctx.author.mention)
+        baslik = "Aktif bir süren yok! [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         #embed.set_footer(text="!s {dakika} ile yeni süre oluşturabilirsiniz.")
