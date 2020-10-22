@@ -43,8 +43,7 @@ async def zamanlayici(ctx, saniye):
                     print(timeformat, end='\r')
                     #yaz = "Kalan zaman:",timeformat
                     #await bot.change_presence(activity=discord.Game(name=yaz))
-                    baslik = "Hey %r senin için ayarladığım %r dakikalık zaman sona erdi." %(ctx.author.name, dakika)
-                    embed=discord.Embed(title="Süre Bitti",description=baslik,color=0xe26522)
+                    embed=discord.Embed(title="Süre Bitti",color=0xe26522)
                     #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
                     etiket = ctx.author.mention
                     await ctx.channel.send(etiket)
@@ -57,7 +56,7 @@ async def zamanlayici(ctx, saniye):
                 
             elif calismalistesi[kullaniciid] == 0: #İptal etme özelliği
                 tekraredildimi[kullaniciid] = 0
-                baslik = "Hey %r senin için ayarladığım zamanı iptal ettin." %(ctx.author.name)
+                baslik = "Süreniz iptal edildi. [%r] " %(ctx.author.name)
                 embed=discord.Embed(title="İptal Edildi",description=baslik, color=0xe26522)
                 #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
                 etiket = ctx.author.mention
@@ -77,10 +76,18 @@ async def zamanlayici(ctx, saniye):
 
             elif calismalistesi[kullaniciid] == 2: #Durdurma özelliği
                 tekraredildimi[kullaniciid] = 0
-                baslik = "Hey %r senin için ayarladığım zamanı durdurdun." %(ctx.author.mention)
-                embed=discord.Embed(title="Durduruldu",description=baslik, color=0xe26522)
-                #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
-                await ctx.channel.send(embed=embed)
+                yenisaniye = anlıkzaman[kullaniciid]
+                if yenisaniye > 60:
+                    kalansure = int(yenisaniye/60)
+                    baslik = "Kalan süre %r dakika [%r]" %(kalansure, ctx.author.mention)
+                    embed=discord.Embed(title="Durduruldu",description=baslik, color=0x5699e1)
+                    #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+                    await ctx.channel.send(embed=embed)
+                if yenisaniye <= 60:
+                    baslik = "Kalan süre %r saniye [%r]" %(yenisaniye, ctx.author.mention)
+                    embed=discord.Embed(title="Durduruldu",description=baslik, color=0x5699e1)
+                    #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+                    await ctx.channel.send(embed=embed)
                 kisidurdumu[kullaniciid] = "durdu"
                 break
 
@@ -94,7 +101,7 @@ async def zamanlayici(ctx, saniye):
 async def starter(ctx, dakika):
     kullaniciid = ctx.author.id 
     if kullaniciid in anlıkzaman: #Şu an aktif süre var.
-        baslik = "Hey %r şu anda çalışan bir süreniz bulunmakta!" %(ctx.author.mention)
+        baslik = "Süre zaten devam ediyor. [%r]" %(ctx.author.mention)
         embed= discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         embed.set_footer(text="!s iptal ile süreyi iptal edebilirsiniz.")
@@ -104,9 +111,10 @@ async def starter(ctx, dakika):
 
     else: #İlk kez süre tutulacak.
         calismalistesi[kullaniciid] = 1 
-        baslik = "Hey %r senin için %r dakikalık zaman ayarladım." %(ctx.author.mention, dakika)
+        baslik = "Kalan süre: %r [%r] " %(dakika, ctx.author.mention)
         embed=discord.Embed(title="Başlatıldı",description=baslik,color=0x4ce141)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+        embed.set_footer(text=".s iptal ile süreyi durdurabilirsiniz.")
         await ctx.channel.send(embed = embed)
         sn = int(dakika*60)
         await zamanlayici(ctx, sn)
@@ -114,14 +122,14 @@ async def starter(ctx, dakika):
 async def zamandurdurma(ctx):
     kullaniciid = ctx.author.id
     if kullaniciid in kisidurdumu and kisidurdumu[kullaniciid] == "iptal":
-        baslik = "Hey %r ayarlı bir süreniz bulunmamakta." %(ctx.author.mention)
+        baslik = "Şu an aktif süreniz yok! [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         embed.set_footer(text="!s {dakika} ile süre ayarlayabilirsiniz.")
         await ctx.channel.send(embed=embed)
 
     elif kullaniciid in kisidurdumu and kisidurdumu[kullaniciid] == "durdu":
-        baslik = "Hey %r durdurduğun süreyi iptal ettim." %(ctx.author.mention)
+        baslik = "Durdurulan süre iptal edildi. [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="İptal Edildi",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         embed.set_footer(text="!s {dakika} ile süre ayarlayabilirsiniz.")
@@ -143,7 +151,7 @@ async def durmaolayi(ctx):
     if kullaniciid in anlıkzaman:
         if kisidurdumu[kullaniciid] == "durdu":
             print(kisidurdumu.items())
-            baslik = "Hey %r şu anda durdurulmuş bir süreye sahipsiniz!" %(ctx.author.mention)
+            baslik = "Süre zaten durduruldu! [%r]" %(ctx.author.mention)
             embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
             #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
             embed.set_footer(text="!s devam ile yeni süre oluşturabilirsiniz.")
@@ -153,7 +161,7 @@ async def durmaolayi(ctx):
             calismalistesi[kullaniciid] = 2
             tekraredildimi[kullaniciid] = 0
     else:
-        baslik = "Hey %r şu anda çalışan bir süreniz bulunmamakta!" %(ctx.author.mention)
+        baslik = "Süre zaten devam ediyor! [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         embed.set_footer(text="!s {dakika} ile yeni süre oluşturabilirsiniz.")
@@ -173,19 +181,19 @@ async def zamandevam(ctx):
         await zamanlayici(ctx, sure)
     
     elif kisidurdumu[kullaniciid]== "iptal": #Eğer iptal edilmişse yap.
-        baslik = "Hey %r durdurulmuş bir süreye sahip değilsin!" %(ctx.author.mention)
+        baslik = "Durdurulmuş bir süre yok! [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         await ctx.channel.send(embed=embed)
 
     elif kisidurdumu[kullaniciid] == "devam": #Zaten devam ediliyorsa yap.
-        baslik = "Hey %r senin için devam eden bir süre zaten mevcut." %(ctx.author.mention)
+        baslik = "Süre zaten devam ediyor. [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Devam Edemedi",description=baslik, color=0x5699e1)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         await ctx.channel.send(embed=embed)
 
     else: #Daha hiç bir süre vs. tutmamışsa...
-        baslik = "Hey %r önce bir süre ayarlamalısın." %(ctx.author.mention)
+        baslik = "Önce bir süre ayarlamalısın. [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Devam Edemedi",description=baslik, color=0x5699e1)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         await ctx.channel.send(embed=embed)
@@ -193,7 +201,7 @@ async def zamandevam(ctx):
 async def yenizaman(ctx):
     kullaniciid = ctx.author.id
     if tekraredildimi[kullaniciid] == 0:
-        baslik = "Hey %r şu anda tekrar etme özelliğini kullanamazsınız!" %(ctx.author.mention)
+        baslik = "Şuanda tekrar özelliğini kullanamazsınız! [%r]" %(ctx.author.mention)
         embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         await ctx.channel.send(embed=embed)
@@ -203,14 +211,14 @@ async def yenizaman(ctx):
             yenisaniye = ensonbelirlenensure[kullaniciid]
             print(ensonbelirlenensure.items())
             calismalistesi[kullaniciid] = 1
-            baslik = "Hey %r veri tabanımdan en son kullandığın süreyi ayarladım." %(ctx.author.mention)
+            baslik = "En son kullandığın süreyi ayarladım. [%r]" %(ctx.author.mention)
             embed=discord.Embed(title="Tekrar Ediyor",description=baslik, color=0xe26522)
             #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
             await ctx.channel.send(embed=embed)
             await zamanlayici(ctx, yenisaniye)
         else:
             print(ensonbelirlenensure.items())
-            baslik = "Hey %r daha önceden ayarladığınız bir süre mevcut değil." %(ctx.author.mention)
+            baslik = "Daha hiç süre ayarlamadınız! [%r]" %(ctx.author.mention)
             embed=discord.Embed(title="Tekrar Edemedi",description=baslik, color=0x5699e1)
             #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
             await ctx.channel.send(embed=embed)
@@ -224,12 +232,12 @@ async def anlikzaman(ctx):
             yenisaniye = anlıkzaman[kullaniciid]
             if yenisaniye > 60:
                 kalansure = int(yenisaniye/60)
-                baslik = "Hey %r kalan süre %r dakika!" %(ctx.author.mention, kalansure)
+                baslik = "Kalan süre %r dakika [%r]" %(kalansure, ctx.author.mention)
                 embed=discord.Embed(title="Anlık Süre",description=baslik, color=0x5699e1)
                 #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
                 await ctx.channel.send(embed=embed)
             if yenisaniye <= 60:
-                baslik = "Hey %r kalan süre %r saniye!" %(ctx.author.mention, yenisaniye)
+                baslik = "Kalan süre %r saniye [%r]" %(yenisaniye, ctx.author.mention)
                 embed=discord.Embed(title="Anlık Süre",description=baslik, color=0x5699e1)
                 #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
                 await ctx.channel.send(embed=embed)
