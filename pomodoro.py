@@ -111,7 +111,7 @@ async def starter(ctx, dakika):
 
     else: #İlk kez süre tutulacak.
         calismalistesi[kullaniciid] = 1 
-        baslik = "Kalan süre: %r [%r] " %(dakika, ctx.author.mention)
+        baslik = "Kalan süre: %r dakika! [%r] " %(dakika, ctx.author.mention)
         embed=discord.Embed(title="Başlatıldı",description=baslik,color=0x4ce141)
         #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
         embed.set_footer(text=".s iptal ile süreyi durdurabilirsiniz.")
