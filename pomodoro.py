@@ -157,6 +157,13 @@ async def durmaolayi(ctx):
             #embed.set_footer(text="!s devam ile yeni süre oluşturabilirsiniz.")
             await ctx.channel.send(embed=embed)
             tekraredildimi[kullaniciid] = 0
+        elif kisidurdumu[kullaniciid] == "iptal":
+            baslik = "Süre zaten iptal edilmiş! [%r]" %(ctx.author.mention)
+            embed=discord.Embed(title="Hata",description=baslik, color=0xff0000)
+            #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+            #embed.set_footer(text="!s devam ile yeni süre oluşturabilirsiniz.")
+            await ctx.channel.send(embed=embed)
+            tekraredildimi[kullaniciid] = 1
         else:
             calismalistesi[kullaniciid] = 2
             tekraredildimi[kullaniciid] = 0
