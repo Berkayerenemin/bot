@@ -23,7 +23,7 @@ bot = commands.Bot(command_prefix='.')
 async def on_ready():
     print(f'{bot.user.name} artık aktif!')
     print(f'{bot.user.id} sunucuda...')
-    await bot.change_presence(activity=discord.Game(name=".yardım"))
+    await bot.change_presence(activity=discord.Game(name=".yardım  -  patrobot v1.0"))
 
 #Yeni üye
 """@bot.event
