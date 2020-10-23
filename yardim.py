@@ -31,11 +31,12 @@ async def komutlar(ctx):
 async def sayr(ctx):
     embed=discord.Embed(title="Süre Tutma / Tekrar / İptal Özelliği", description="Süre tutma özelliği oldukça basittir. Süre miktarını girersiniz ve ben bunu aklımda tutarım. Süre bittiğinde ise size bildirim gönderirim. Dilersen süreyi durdurabilirsin, sonrasında ise aynı yerden tutmaya devam edebilirim.", color=0xd81818)
     embed.add_field(name="Süre Tutmak İçin:", value=".s {dakika}", inline=False)
+    embed.add_field(name="Kalan Süreyi Görüntülemek İçin:", value=".s şimdi", inline=False)
+    embed.add_field(name="Aktif Olan Süre İptali İçin:", value=".s iptal", inline=False)
     embed.add_field(name="Sureyi Durdurmak İçin:", value=".s durdur", inline=False)
     embed.add_field(name="Durdurulan Süreyi Devam Ettirmek İçin:", value=".s devam", inline=False)
     embed.add_field(name="En Son Tutulan Süreyi Tekrar Tutmak İçin:", value=".s tekrar", inline=False)
-    embed.add_field(name="Aktif Olan Süre İptali İçin:", value=".s iptal", inline=False)
-    embed.add_field(name="Kalan Süreyi Görüntülemek İçin:", value=".s şimdi", inline=False)
+    embed.add_field(name="Ayrıntılı Video:", value="https://bit.ly/2IWcJE1", inline=False)
     await ctx.channel.send(embed=embed)
 
 

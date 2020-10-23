@@ -103,4 +103,4 @@ async def on_message(ctx):
     else:
         pass
 
-bot.run(token)
+bot.run("NzU0NzA4NjUyNzA2NzU4NzI4.X14rNA.JJ02bcJCxjACtO6L3Houbmp0DXo")
