@@ -179,10 +179,17 @@ async def zamandevam(ctx):
     kullaniciid = ctx.author.id
     if kisidurdumu[kullaniciid] == "durdu": #Eğer durdurulmuşsa yap.
         sure = anlıkzaman[kullaniciid]
-        baslik = "Hey %r senin için ayarladığım süre devam ediyor!" %(ctx.author.mention)
-        embed=discord.Embed(title="Devam Ediyor",description=baslik, color=0x4ce141)
-        #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
-        await ctx.channel.send(embed=embed)
+        if sure > 60:
+            kalansure = int(sure/60)
+            baslik = "Kalan süre %r dakika [%r]" %(kalansure, ctx.author.mention)
+            embed=discord.Embed(title="Devam Ediyor",description=baslik, color=0x4ce141)
+            #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+            await ctx.channel.send(embed=embed)
+        if sure <= 60:
+            baslik = "Kalan süre %r saniye [%r]" %(yenisaniye, ctx.author.mention)
+            embed=discord.Embed(title="Devam Ediyor",description=baslik, color=0x4ce141)
+            #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
+            await ctx.channel.send(embed=embed)
         calismalistesi[kullaniciid] = 1
         kisidurdumu[kullaniciid] = "devam"
         await zamanlayici(ctx, sure)
