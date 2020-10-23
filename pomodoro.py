@@ -185,11 +185,13 @@ async def zamandevam(ctx):
             embed=discord.Embed(title="Devam Ediyor",description=baslik, color=0x4ce141)
             #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
             await ctx.channel.send(embed=embed)
-        if sure <= 60:
+        elif sure <= 60:
             baslik = "Kalan süre %r saniye [%r]" %(yenisaniye, ctx.author.mention)
             embed=discord.Embed(title="Devam Ediyor",description=baslik, color=0x4ce141)
             #embed.set_thumbnail(url="https://media.giphy.com/media/T1zgJ7cp8tWla/source.gif")
             await ctx.channel.send(embed=embed)
+        else: 
+            pass
         calismalistesi[kullaniciid] = 1
         kisidurdumu[kullaniciid] = "devam"
         await zamanlayici(ctx, sure)
