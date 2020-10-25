@@ -120,7 +120,9 @@ async def zamandurdurma(ctx):
             tekraredildimi[kullaniciid] = 0
             pass
     else:
-        await ctx.channel.send(embed=pomodeg.metinyayimlama(7, 0, ctx))
+        calismalistesi[kullaniciid] == 0
+        kisidurdumu[kullaniciid] = "iptal"
+        tekraredildimi[kullaniciid] = 1
 
 async def durmaolayi(ctx):
     kullaniciid = ctx.author.id
