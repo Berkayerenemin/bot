@@ -98,8 +98,11 @@ async def on_message(ctx):
             pass
     
     if msj[0] == ".geliştirme":
-        print("Yapım aşamasında")
-
+        embed=discord.Embed(title="Geliştirici Günlüğü - Gelecek", color=0xd81818)
+        embed.add_field(name="Geri Bildirim Mekanizması", value=".gb", inline=False)
+        embed.add_field(name="To-Do List Özelliği", value=".todo", inline=False)
+        embed.add_field(name="Müzik Çalma Özelliği", value=".m", inline=False)
+        await ctx.channel.send(embed=embed)
     else:
         pass
 

@@ -42,7 +42,8 @@ async def zamanlayici(ctx, saniye):
                     await ctx.channel.send(etiket)
                     await ctx.channel.send(embed=pomodeg.metinyayimlama(3, saniye, ctx))
                     anlıkzaman.pop(kullaniciid)
-                    kisidurdumu[kullaniciid] = "durdu"
+                    kisidurdumu[kullaniciid] = "iptal"
+                    tekraredildimi[kullaniciid] = 1
                     break
                 else:
                     kisidurdumu[kullaniciid] = "devam"
@@ -119,7 +120,7 @@ async def zamandurdurma(ctx):
             tekraredildimi[kullaniciid] = 0
             pass
     else:
-        calismalistesi[kullaniciid] = 0
+        await ctx.channel.send(embed=pomodeg.metinyayimlama(7, 0, ctx))
 
 async def durmaolayi(ctx):
     kullaniciid = ctx.author.id

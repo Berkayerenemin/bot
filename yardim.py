@@ -25,6 +25,7 @@ async def komutlar(ctx):
     embed.add_field(name="Süre Tutma / Tekrar / İptal Özelliği:", value=".yardım s", inline=False)
     embed.add_field(name="Wikipedia Özelliği:", value=".yardım w", inline=False)
     embed.add_field(name="İstatiksel Veri:", value=".ist", inline=False)
+    embed.add_field(name="Geliştirici Günlüğü", value=".geliştirme", inline=False)
     await ctx.channel.send(embed=embed)
 
 
