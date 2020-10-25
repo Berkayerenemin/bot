@@ -120,7 +120,7 @@ async def zamandurdurma(ctx):
             tekraredildimi[kullaniciid] = 0
             pass
     else:
-        calismalistesi[kullaniciid] == 0
+        calismalistesi[kullaniciid] = 0
         kisidurdumu[kullaniciid] = "iptal"
         tekraredildimi[kullaniciid] = 1
 
