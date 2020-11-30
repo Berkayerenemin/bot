@@ -14,6 +14,7 @@ import yardim
 import pomodoro
 
 token = os.environ.get('BOT-TOKEN')
+role_id = 782853573402558504
 
 #Bot prefix
 bot = commands.Bot(command_prefix='.')
@@ -31,6 +32,35 @@ async def on_member_join(member):
     await member.create_dm()
     await member.dm_channel.send(f'Hoşgeldin {member.name}. \n Eğer bize <#782349088539934771>ırsan, üstad arakadaşlarımızın onayalamasından sonra Miço rolünü alabilirsin. Ayrıca diğer odalara da göz atmayı unutma :wink: \n Takıldığın herhangi bir şey olursa biz buradayız, <#782262043884781598> etmekten çekinme. ')
 """
+
+@bot.event
+async def on_voice_state_update(member, before, after):
+    role = discord.utils.get(member.guild.roles, id=role_id)
+    if before.channel is None and after.channel is not None:
+        #role =discord.utils.get(member.guild.roles, name="focus")
+        #await member.add_roles(role)
+        #await member.guild.system_channel.send("Alarm!")
+        if after.channel.id == 782214394884653059:
+            await member.add_roles(role)
+            #await member.channel.send("Alarm!")
+        else:
+            await member.remove_roles(role)
+
+    elif before.channel is not None and after.channel is not None:
+        if after.channel.id == 782214394884653059:
+            await member.add_roles(role)
+            #await member.channel.send("Alarm!")
+        else:
+            await member.remove_roles(role)
+
+    elif before.channel is not None and after.channel is None:
+        if before.channel.id == 782214394884653059:
+            await member.remove_roles(role)
+        else:
+            pass
+
+    else:
+        pass
 
 #Olaylar
 @bot.event
