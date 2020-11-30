@@ -29,7 +29,7 @@ async def on_ready():
 """@bot.event
 async def on_member_join(member):
     await member.create_dm()
-    await member.dm_channel.send(f'Hoşgeldin {member.name}. \n Eğer bize <#714143229364404314>ırsan Acemi rolünden kurtulabilirsin. Ayrıca diğer odalara da göz atmayı unutma :wink: \n Takıldığın herhangi bir şey olursa biz buradayız, <#713328432406200337>mekten çekinme. ')
+    await member.dm_channel.send(f'Hoşgeldin {member.name}. \n Eğer bize <#782349088539934771>ırsan, üstad arakadaşlarımızın onayalamasından sonra Miço rolünü alabilirsin. Ayrıca diğer odalara da göz atmayı unutma :wink: \n Takıldığın herhangi bir şey olursa biz buradayız, <#782262043884781598> etmekten çekinme. ')
 """
 
 #Olaylar
