@@ -15,6 +15,14 @@ import pomodoro
 
 token = os.environ.get('BOT-TOKEN')
 role_id = 782853573402558504
+nefer_id = 782254293877129218
+ustad_id = 782214988591792149
+mico_id = 782215314611765289
+say_id = 782294101994504242
+everyone_id = 782214393949454349
+ea_id = 782375578305167414
+roles = {}
+roller = []
 
 #Bot prefix
 bot = commands.Bot(command_prefix='.')
@@ -35,30 +43,91 @@ async def on_member_join(member):
 
 @bot.event
 async def on_voice_state_update(member, before, after):
-    role = discord.utils.get(member.guild.roles, id=role_id)
+    roleodak = discord.utils.get(member.guild.roles, id=role_id)
+    rolenefer = discord.utils.get(member.guild.roles, id=nefer_id)
+    roleustad = discord.utils.get(member.guild.roles, id=ustad_id)
+    rolemico = discord.utils.get(member.guild.roles, id=mico_id)
+    rolesay = discord.utils.get(member.guild.roles, id=say_id)
+    roleeveryone = discord.utils.get(member.guild.roles, id=everyone_id)
+    rolea = discord.utils.get(member.guild.roles, id=ea_id)
     if before.channel is None and after.channel is not None:
         #role =discord.utils.get(member.guild.roles, name="focus")
         #await member.add_roles(role)
         #await member.guild.system_channel.send("Alarm!")
         if after.channel.id == 782214394884653059:
-            await member.add_roles(role)
-            #await member.channel.send("Alarm!")
+            await member.add_roles(roleodak)
+            for role in member.roles:
+                roller.append(role.id)
+                if role.id == 782214988591792149:
+                    await member.remove_roles(roleustad)
+                elif role.id == 782294101994504242:
+                    await member.remove_roles(rolesay)
+                elif role.id == 782254293877129218:
+                    await member.remove_roles(rolenefer)
+                elif role.id == 782375578305167414:
+                    await member.remove_roles(rolea)
+                elif role.id == 782215314611765289:
+                    await member.remove_roles(rolemico)
+            roles[member.id] = roller
         else:
             await member.remove_roles(role)
 
     elif before.channel is not None and after.channel is not None:
         if after.channel.id == 782214394884653059:
-            await member.add_roles(role)
-            #await member.channel.send("Alarm!")
+            await member.add_roles(roleodak)
+            for role in member.roles:
+                roller.append(role.id)
+                print(role.id)
+                if role.id == 782214988591792149:
+                    await member.remove_roles(roleustad)
+                elif role.id == 782294101994504242:
+                    await member.remove_roles(rolesay)
+                elif role.id == 782254293877129218:
+                    await member.remove_roles(rolenefer)
+                elif role.id == 782375578305167414:
+                    await member.remove_roles(rolea)
+                elif role.id == 782215314611765289:
+                    await member.remove_roles(rolemico)
         else:
             await member.remove_roles(role)
 
     elif before.channel is not None and after.channel is None:
         if before.channel.id == 782214394884653059:
+            rollist = roles[member.id]
+            for role in rollist:
+                if role == 782214988591792149:
+                    await member.add_roles(roleustad)
+                elif role == 782294101994504242:
+                    await member.add_roles(rolesay)
+                elif role == 782254293877129218:
+                    await member.add_roles(rolenefer)
+                elif role == 782375578305167414:
+                    await member.add_roles(rolea)
+                elif role == 782215314611765289:
+                    await member.add_roles(rolemico)
             await member.remove_roles(role)
+            roles.pop(member.id)
         else:
             pass
-
+    elif before.channel is not None and after.channel is not None:
+        if before.channel.id == 782214394884653059:
+            rollist = roles[member.id]
+            print("Sorun", rollist)
+            for role in rollist:
+                if role == 782214988591792149:
+                    await member.add_roles(roleustad)
+                elif role == 782294101994504242:
+                    await member.add_roles(rolesay)
+                elif role == 782254293877129218:
+                    await member.add_roles(rolenefer)
+                elif role == 782375578305167414:
+                    await member.add_roles(rolea)
+                elif role == 782215314611765289:
+                    await member.add_roles(rolemico)
+            await member.remove_roles(roleodak)
+            roles.pop(member.id)
+        else:
+            pass
     else:
         pass
 
