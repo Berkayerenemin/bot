@@ -12,6 +12,7 @@ import wiki2
 import time as t
 import yardim
 import pomodoro
+import timer
 
 token = os.environ.get('BOT-TOKEN')
 role_id = 782853573402558504
@@ -32,7 +33,10 @@ bot = commands.Bot(command_prefix='.')
 async def on_ready():
     print(f'{bot.user.name} artık aktif!')
     print(f'{bot.user.id} sunucuda...')
-    await bot.change_presence(activity=discord.Game(name=".yardım  -  patrobot v1.0"))
+    a = await timer.ykszaman()
+    b = str(a)
+    yazi = ".yardım - YKS'ye kalan: " + b
+    await bot.change_presence(activity=discord.Game(name=yazi))
 
 #Yeni üye
 """@bot.event
